@@ -9,13 +9,13 @@ import java.awt.event.MouseEvent;
 public class JuegoCapitales extends Applet {
     Panel pNorte,pOeste,pCentro,pEste,pSur;
     TextArea tSuperior,tRespuesta;
-    TextField tAciertos,tErrores;
-    int aciertos,errores,anchura,altura;
+    TextField tAciertos,tErrores,tMensajes;
+    int aciertos=0,errores=0,anchura,altura;
     Label l1,l2,lAciertos,lErrores;
     List l;
     Button comprobar,borrar;
-    String paises[]={"Afganistan","Argentina","Belgica","Brasil","Catar","Dinamarca","Eslovaquia"};
-    String capitales[]={"Kabul","Buenos Aires","Bruselas","Brasilia","Doha","Copenhague","Bratislava"};
+    String paises[]={"Afganistán","Argentina","Bélgica","Brasil","Catar","Dinamarca","Eslovaquia"};
+    String capitales[]={"Kabul","Buenos Aires","Bruselas","Brasília","Doha","Copenhague","Bratislava"};
     String paisesCapitales[][];
     
     public void init() {
@@ -34,8 +34,7 @@ public class JuegoCapitales extends Applet {
         for(int i=0;i<paises.length;i++){
             paisesCapitales[0][i]=paises[i];
             paisesCapitales[1][i]=capitales[i];
-        }
-            
+        }   
     }
     
     public void componerPantalla(){
@@ -78,15 +77,18 @@ public class JuegoCapitales extends Applet {
         //Panel Sur
         lAciertos=new Label("Aciertos");
         lErrores=new Label("Errores");
-        tAciertos=new TextField(5);
+        tAciertos=new TextField(intString(aciertos),5);
         tAciertos.setEditable(false);
-        tErrores=new TextField(5);
+        tErrores=new TextField(intString(errores),5);
         tErrores.setEditable(false);
+        tMensajes=new TextField(30);
+        tMensajes.setEditable(false);
         pSur=new Panel(new FlowLayout());
         pSur.add(lAciertos);
         pSur.add(tAciertos);
         pSur.add(lErrores);
         pSur.add(tErrores);
+        pSur.add(tMensajes);
         
         //Carga de paneles
         add(pNorte,BorderLayout.NORTH);
@@ -97,15 +99,27 @@ public class JuegoCapitales extends Applet {
     }
     
     public void crearComponentes(){
-          comprobar.addMouseListener(new MouseAdapter() {
+        comprobar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                if(l.getSelectedIndex()!=-1){
-                    System.out.println("Se ha elejido la opcion"+eleccionLista());
+                if(l.getSelectedIndex()!=-1 && !tRespuesta.getText().isEmpty()){
+                    if(paisesCapitales[1][eleccionLista()].equals(tRespuesta.getText())){
+                        
+                        aciertos++;
+                        tAciertos.setText(intString(aciertos));
+                        tMensajes.setText("Respuesta Correcta!!");
+                    }else{
+                        errores++;
+                        tErrores.setText(intString(errores));
+                        tMensajes.setText("Tontito, respuesta incorrecta");
+                    }
+                    
+                }else{
+                    tMensajes.setText("Respuesta vacia o pais no selecionado");
                 }
             }
         });
           
-         borrar.addMouseListener(new MouseAdapter() {
+        borrar.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
             
             }
@@ -114,6 +128,11 @@ public class JuegoCapitales extends Applet {
     
     public int eleccionLista(){
         return l.getSelectedIndex();
+    }
+    
+    public String intString(int x){
+        String s = Integer.toString(x);
+        return s;
     }
     
     void mostrarArray(){
