@@ -5,10 +5,7 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 
 public class EjercicioHistorialPulsaciones extends Applet {
@@ -68,7 +65,7 @@ public class EjercicioHistorialPulsaciones extends Applet {
                     final Frame f = new Frame();
                     f.setResizable(false);
                     f.setTitle("Boton Primero");
-                    f.setBounds(0,325,200,125);
+                    f.setBounds(0,335,200,125);
                     f.setVisible(true);
                     f.getToolkit().beep();
                     //Aqui faltaria que se mostrara la imagen
@@ -106,5 +103,4 @@ public class EjercicioHistorialPulsaciones extends Applet {
             }
          });
     }
-    
 }
