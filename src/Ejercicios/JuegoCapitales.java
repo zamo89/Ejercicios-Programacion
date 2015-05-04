@@ -19,7 +19,7 @@ public class JuegoCapitales extends Applet {
     String paisesCapitales[][];
     
     public void init() {
-        paisesCapitales = new String [2][15];
+        paisesCapitales = new String [2][paises.length];
         altura=this.getHeight();
         anchura=this.getWidth();
         añadirCapitales();
