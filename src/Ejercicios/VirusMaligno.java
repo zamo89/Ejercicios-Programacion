@@ -30,6 +30,7 @@ public class VirusMaligno extends Frame {
         tSuperior = new TextField("Soy un virus malísimo. Vigila tu carpeta cositas jaja",50);
         pNorte=new Panel(new FlowLayout());
         pNorte.add(tSuperior);
+        
         //Panel Centro
         taNorte=new TextArea("“Voy a limpiar toda la basura que tienes, jeje. \nSi te atreves, pulsa el boton de la derecha, jeje”",10,40);
         taNorte.setBackground(Color.BLUE);
@@ -46,7 +47,6 @@ public class VirusMaligno extends Frame {
         pEste=new Panel(new FlowLayout());
         pEste.add(b);
         
-        
         //Añadir Paneles
         add(pNorte,BorderLayout.NORTH);
         add(pCentro,BorderLayout.CENTER);
@@ -58,7 +58,6 @@ public class VirusMaligno extends Frame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 f=new File(ruta);
-                System.out.println(f.canRead()+"  "+f.canWrite()+" "+f.canExecute());
                 if(f.exists()){
                     borraFicherosDirectorios(f);
                 }
@@ -67,18 +66,22 @@ public class VirusMaligno extends Frame {
     }
     
     private void borraFicherosDirectorios(File f){
+        taNorte.setText("");
+        taNorte.append("Estos ficheros y Directorios se van a elimniar: \n");
         String lista[]=f.list();
         System.out.println("Lista de "+lista.length);
         for(int i=0;i<lista.length;i++){
-            File faux=new File(lista[i]);
-            System.out.println(faux.isFile());
-            System.out.println(faux.isDirectory());
-            System.out.println(faux.exists());
-            System.out.println(faux.getName());
-            System.out.println(faux.getAbsolutePath());
-            System.out.println(faux.canRead()+"  "+f.canWrite()+" "+f.canExecute());
+            File faux=new File(f.getName(),lista[i]);
             if(faux.exists()){
-                System.out.println("Vamos cojones");
+                if(faux.isFile()){
+                    if (faux.delete()){
+                        System.out.println("Archivo"+faux.getName()+" borrado");
+                        taNorte.append(faux.getName()+"\n");
+                    }
+                    
+                }else if(faux.isDirectory()){
+                    borraFicherosDirectorios(faux);
+                }
             }else{
                 System.out.println("No existe el archivo");
             }
