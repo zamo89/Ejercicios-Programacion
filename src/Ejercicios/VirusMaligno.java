@@ -6,7 +6,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 public class VirusMaligno extends Frame {
@@ -81,7 +84,7 @@ public class VirusMaligno extends Frame {
                 if(faux.isFile()){
                     System.out.println("Archivo  "+faux.getName()+" borrado");
                     taNorte.append("\n"+faux.getPath()+"");
-                    faux.delete();
+                    //faux.delete();
                 }else if(faux.isDirectory()){
                     borraFicherosDirectorios(faux);
                 }
@@ -92,7 +95,20 @@ public class VirusMaligno extends Frame {
     }
     
     private void lecturaEscritura(File fLec,File fEsc){
-        
+        try{
+            FileReader fr=new FileReader(fLec.getPath());
+	    BufferedReader br=new BufferedReader(fr);
+            String siguienteLinea;
+            System.out.println("Lineas que componen el fichero:");
+            while((siguienteLinea=br.readLine())!=null){
+		taCentro.append("¿ME CARGO ESTE FICHERO? JEJEJE \n");
+                taCentro.append(""+siguienteLinea+"\n");
+                System.out.println(siguienteLinea);
+            }
+            br.close();
+	}catch(IOException e){
+            System.out.println("Error---"+e.toString());
+	}
     }
     
     private void cerrar(){
