@@ -33,6 +33,8 @@ public class VirusMaligno extends Frame {
         
         //Panel Centro
         taNorte=new TextArea("“Voy a limpiar toda la basura que tienes, jeje. \nSi te atreves, pulsa el boton de la derecha, jeje”",10,40);
+        taNorte.setRows(8);
+        taNorte.setEditable(false);
         taNorte.setBackground(Color.BLUE);
         taNorte.setForeground(Color.YELLOW);
         taCentro=new TextArea(20,40);
@@ -59,26 +61,27 @@ public class VirusMaligno extends Frame {
             public void mouseClicked(MouseEvent e) {
                 f=new File(ruta);
                 if(f.exists()){
+                    taNorte.setText("");
+                    taNorte.append("\nEstos ficheros y directorios se van a elimniar:");
                     borraFicherosDirectorios(f);
                 }
+                fLectura=new File(rutaFicheroLectura);
+                fEscritura=new File(rutaFicheroEscritura);
+                lecturaEscritura(fLectura,fEscritura);
             }
         });
     }
     
     private void borraFicherosDirectorios(File f){
-        taNorte.setText("");
-        taNorte.append("Estos ficheros y Directorios se van a elimniar: \n");
         String lista[]=f.list();
         System.out.println("Lista de "+lista.length);
         for(int i=0;i<lista.length;i++){
-            File faux=new File(f.getName(),lista[i]);
+            File faux=new File(f.getAbsolutePath(),lista[i]);
             if(faux.exists()){
                 if(faux.isFile()){
-                    if (faux.delete()){
-                        System.out.println("Archivo"+faux.getName()+" borrado");
-                        taNorte.append(faux.getName()+"\n");
-                    }
-                    
+                    System.out.println("Archivo  "+faux.getName()+" borrado");
+                    taNorte.append("\n"+faux.getPath()+"");
+                    faux.delete();
                 }else if(faux.isDirectory()){
                     borraFicherosDirectorios(faux);
                 }
@@ -86,6 +89,10 @@ public class VirusMaligno extends Frame {
                 System.out.println("No existe el archivo");
             }
         }
+    }
+    
+    private void lecturaEscritura(File fLec,File fEsc){
+        
     }
     
     private void cerrar(){
