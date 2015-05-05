@@ -19,7 +19,7 @@ public class JuegoCapitales extends Applet {
     String paisesCapitales[][];
     
     public void init() {
-        paisesCapitales = new String [2][15];
+        paisesCapitales = new String [2][paises.length];
         altura=this.getHeight();
         anchura=this.getWidth();
         añadirCapitales();
@@ -39,10 +39,10 @@ public class JuegoCapitales extends Applet {
         setLayout(new BorderLayout());
         
         //Panel Norte
-        tSuperior=new TextArea("Escribe en el cuadro de texto la capital de un país de la lista central,\n"
-                +"seleccionalo y pulsa el botón COMPROBAR con el botón izdo. \n Para borrar la capital"
-                +"escrita y el mensaje de acierto o error pulsa BORRAR. \n Si fallas mas de tres veces el "
-                +"programa no te dejara jugar más. \n No intentes modificar tus aciertos o errores porque no podrás ");
+        tSuperior=new TextArea("Escribe en el cuadro de texto la capital de un pais de la lista central,\n"
+                +"seleccionalo y pulsa el boton COMPROBAR con el boton izdo. \nPara borrar la capital"
+                +"escrita y el mensaje de acierto o error pulsa BORRAR. \nSi fallas mas de tres veces el "
+                +"programa no te dejara jugar mas. \nNo intentes modificar tus aciertos o errores porque no podras ");
         tSuperior.setEditable(false);
         pNorte=new Panel(new BorderLayout());
         pNorte.add(tSuperior);
@@ -102,15 +102,18 @@ public class JuegoCapitales extends Applet {
             public void mouseClicked(MouseEvent e) {
                 if(errores<3){
                     if(l.getSelectedIndex()!=-1 && !tRespuesta.getText().isEmpty()){
-                    if(paisesCapitales[1][eleccionLista()].equals(tRespuesta.getText())){
-                        
-                        aciertos++;
-                        tAciertos.setText(intString(aciertos));
-                        tMensajes.setText("Respuesta Correcta!!");
+                        if(paisesCapitales[1][eleccionLista()].equals(tRespuesta.getText())){
+                            aciertos++;
+                            tAciertos.setText(intString(aciertos));
+                            tMensajes.setText("Respuesta Correcta!!");
+                        }else{
+                            errores++;
+                            tErrores.setText(intString(errores));
+                            tMensajes.setText("Tontito, respuesta incorrecta");
+                        }
+
                     }else{
-                        errores++;
-                        tErrores.setText(intString(errores));
-                        tMensajes.setText("Tontito, respuesta incorrecta");
+                        tMensajes.setText("Respuesta vacia o pais no selecionado");
                     }
                     
                     }else{

@@ -5,10 +5,7 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.BorderLayout;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 
 public class EjercicioHistorialPulsaciones extends Applet {
@@ -16,10 +13,11 @@ public class EjercicioHistorialPulsaciones extends Applet {
     Panel pNorte,pCentro,pSur;
     Button b1,b2;
     TextArea ta;
-    Image im;
     AudioClip audio;
+    MiCanvas mc;
     int anchuraApplet,alturaApplet,contadorPrimero,contadorSegundo;
     
+    @Override
     public void init() {
         capturarParametros();
         componerPantalla();
@@ -27,7 +25,7 @@ public class EjercicioHistorialPulsaciones extends Applet {
     }
     
     public void capturarParametros(){
-        im=getImage(getCodeBase(), getParameter("imagenes/imagen05.gif")); 
+        
         audio=getAudioClip(getCodeBase(), getParameter("sonidos/sonido04.au"));
     }
     
@@ -68,10 +66,13 @@ public class EjercicioHistorialPulsaciones extends Applet {
                     final Frame f = new Frame();
                     f.setResizable(false);
                     f.setTitle("Boton Primero");
-                    f.setBounds(0,325,200,125);
+                    f.setBounds(0,335,200,125);
                     f.setVisible(true);
                     f.getToolkit().beep();
-                    //Aqui faltaria que se mostrara la imagen
+                    mc = new MiCanvas(getToolkit().getImage("imagenes/imagen01.gif"));
+                    mc.setSize(200,125);
+                    mc.setBackground(Color.black);
+                    f.add(mc);
                     f.addWindowListener(new WindowAdapter(){
                         @Override
                         public void windowClosing(WindowEvent e){
@@ -96,6 +97,7 @@ public class EjercicioHistorialPulsaciones extends Applet {
                     f.setBounds(200,335,200,125);
                     f.setVisible(true);
                     f.getToolkit().beep();
+                    audio.play();
                     f.addWindowListener(new WindowAdapter(){
                         @Override
                         public void windowClosing(WindowEvent e){
@@ -106,5 +108,25 @@ public class EjercicioHistorialPulsaciones extends Applet {
             }
          });
     }
-    
+}
+class MiCanvas extends Canvas {
+
+    Image imagen;
+
+    public MiCanvas(Image imagen) {
+        this.imagen = imagen;
+        System.out.println("Constructor Canvas");
+    }
+
+    //Se redefine el paint(..)
+    public void paint(Graphics g) {
+        System.out.println("paint");
+
+        //El segundo y tercer argumento son coordenadas respecto al canvas
+        //Se muestra la imagen con sus diemnsiones reales
+       g.drawImage(imagen, 0, 0, this);
+
+        //Si se desea mostrar la imagen con las dimensiones del canvas
+        //g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
+    }
 }
