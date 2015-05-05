@@ -16,6 +16,7 @@ public class EjercicioHistorialPulsaciones extends Applet {
     AudioClip audio;
     MiCanvas mc;
     int anchuraApplet,alturaApplet,contadorPrimero,contadorSegundo;
+
     
     @Override
     public void init() {
@@ -25,7 +26,6 @@ public class EjercicioHistorialPulsaciones extends Applet {
     }
     
     public void capturarParametros(){
-        
         audio=getAudioClip(getCodeBase(), getParameter("sonidos/sonido04.au"));
     }
     
@@ -65,13 +65,14 @@ public class EjercicioHistorialPulsaciones extends Applet {
                 if(contadorPrimero==10){
                     final Frame f = new Frame();
                     f.setResizable(false);
+                    f.setLayout(new FlowLayout());
                     f.setTitle("Boton Primero");
-                    f.setBounds(0,335,200,125);
+                    f.setBounds(0,335,200,175);
                     f.setVisible(true);
                     f.getToolkit().beep();
-                    mc = new MiCanvas(getToolkit().getImage("imagenes/imagen01.gif"));
-                    mc.setSize(200,125);
-                    mc.setBackground(Color.black);
+                    Image imagen = getToolkit().getImage("imagenes/imagen05.gif");
+                    mc = new MiCanvas(imagen);
+                    mc.setSize(200, 125);
                     f.add(mc);
                     f.addWindowListener(new WindowAdapter(){
                         @Override
@@ -94,10 +95,10 @@ public class EjercicioHistorialPulsaciones extends Applet {
                     f.setResizable(false);
                     f.setTitle("Boton Segundo");
                     f.setBackground(Color.yellow);
-                    f.setBounds(200,335,200,125);
+                    f.setBounds(200,335,200,175);
                     f.setVisible(true);
                     f.getToolkit().beep();
-                    audio.play();
+                    //audio.play();  No consigo que me reconozca el sonido
                     f.addWindowListener(new WindowAdapter(){
                         @Override
                         public void windowClosing(WindowEvent e){
@@ -115,18 +116,16 @@ class MiCanvas extends Canvas {
 
     public MiCanvas(Image imagen) {
         this.imagen = imagen;
-        System.out.println("Constructor Canvas");
     }
 
     //Se redefine el paint(..)
     public void paint(Graphics g) {
-        System.out.println("paint");
 
         //El segundo y tercer argumento son coordenadas respecto al canvas
         //Se muestra la imagen con sus diemnsiones reales
-       g.drawImage(imagen, 0, 0, this);
+       //g.drawImage(imagen, 0, 0, this);
 
         //Si se desea mostrar la imagen con las dimensiones del canvas
-        //g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
+        g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
     }
 }

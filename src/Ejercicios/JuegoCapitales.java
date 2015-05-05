@@ -25,7 +25,6 @@ public class JuegoCapitales extends Applet {
         añadirCapitales();
         componerPantalla();
         crearComponentes();
-        mostrarArray();
     }
     
     public void añadirCapitales(){
@@ -42,7 +41,8 @@ public class JuegoCapitales extends Applet {
         tSuperior=new TextArea("Escribe en el cuadro de texto la capital de un pais de la lista central,\n"
                 +"seleccionalo y pulsa el boton COMPROBAR con el boton izdo. \nPara borrar la capital"
                 +"escrita y el mensaje de acierto o error pulsa BORRAR. \nSi fallas mas de tres veces el "
-                +"programa no te dejara jugar mas. \nNo intentes modificar tus aciertos o errores porque no podras ");
+                +"programa no te dejara jugar mas. \nNo intentes modificar tus aciertos o errores porque no podras. \n"
+                +"Ten cuidado con los acentos y las mayúsculas");
         tSuperior.setEditable(false);
         pNorte=new Panel(new BorderLayout());
         pNorte.add(tSuperior);
@@ -115,10 +115,6 @@ public class JuegoCapitales extends Applet {
                     }else{
                         tMensajes.setText("Respuesta vacia o pais no selecionado");
                     }
-                    
-                    }else{
-                        tMensajes.setText("Respuesta vacia o pais no selecionado");
-                    }
                 }else{
                     tMensajes.setText("Has fallado mas de 3 veces INCULTO!!");
                 }
@@ -139,11 +135,13 @@ public class JuegoCapitales extends Applet {
     }
     
     public String intString(int x){
-        String s = Integer.toString(x);
-        return s;
+        return Integer.toString(x);
     }
     
+    
+    //Pruebas
     void mostrarArray(){
+        
         for(int i=0;i<paises.length;i++){ 
             System.out.print(paisesCapitales[0][i]);
             System.out.print(" = ");

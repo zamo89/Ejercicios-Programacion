@@ -5,7 +5,6 @@ import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Date;
 
 
 
@@ -15,12 +14,13 @@ public class EjercicioEventos1 extends Applet {
     AudioClip sonido;
     String nombres[]={"Ana","Paco","David","Lucia","Ana","Paco","David","Lucia","Ana","Paco","David","Lucia","Ana","Paco","David","Lucia"};
     String descripcion[];
-    int anchuraImagen,alturaImagen;
+    int anchuraImagen,alturaImagen,pSeleccionado=0;
     Panel pNorte,pEste,pCentro,pOeste,pSur;
     Label label;
     Checkbox opcion1,opcion2;
     CheckboxGroup grupo;
     List lista;
+    MiCanvas mc;
     Button b;
     TextField t;
     
@@ -37,7 +37,7 @@ public class EjercicioEventos1 extends Applet {
     public void capturarParametros(){
         
         for(int i=0;i<15;i++){
-            imagen[i]=getImage(getCodeBase(), getParameter("imagen"+i));  
+            imagen[i]=getToolkit().getImage("imagenes/imagen"+i);
         }
         sonido=getAudioClip(getCodeBase(), getParameter("sonido"));
     }
@@ -67,7 +67,10 @@ public class EjercicioEventos1 extends Applet {
         pOeste.add(lista);
         
         //Panel Central
+        mc = new MiCanvas(imagen[pSeleccionado]);
+        mc.setSize(50, 50);
         pCentro=new Panel(new BorderLayout());
+        pCentro.add(mc);
         
         //Panel Este
         pEste=new Panel(new BorderLayout());
@@ -94,7 +97,6 @@ public class EjercicioEventos1 extends Applet {
     }
     
     public void crearComponentes(){
-        Graphics graficos = this.getGraphics();
         b.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                if(comprobarCheckBox()){
@@ -120,7 +122,8 @@ public class EjercicioEventos1 extends Applet {
     }
     
     public void paint(Graphics g) {
-        g.drawImage(imagen[0], pCentro.getX(), pCentro.getY(), this);
+        
+
     }
     
     public void update(Graphics g) {

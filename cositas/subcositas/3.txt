@@ -1,0 +1,11 @@
+Crear una aplicación de nombre VirusMaligno basada en una ventana cerrable de 650 por 500 con administrador de diseño BorderLayout.
+
+En el norte aparecerá un cuadro de texto de anchura 50 con el  mensaje inicial de
+
+"Soy un virus malo malisimo. Vigila tu carpeta cositas, jeje"
+
+En el centro habrá dos áreas de texto, una en el norte y otra en el centro, contenidas en un panel con BorderLayout.
+
+    La del norte de altura 10 y anchura 40, con color de fondo azul, color de texto amarillo y texto inicial “Voy a limpiar toda la basura que tienes, jeje.\nSi te atreves, pulsa el boton de la derecha, jeje” 
+
+    La del centro, de altura 20 y anchura 40, color de fondo negro y color de texto verde. En el este se ubicará un botón con el texto "¿Tienes lo que hay que tener?" afdsafdasgdfgfdhfdsh

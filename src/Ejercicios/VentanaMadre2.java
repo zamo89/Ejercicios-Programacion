@@ -27,7 +27,6 @@ public class VentanaMadre2 extends Frame {
          add(b);
          b.addMouseListener(new MouseAdapter() {
             int cont=0,x=60,y=60;
-            
             @Override
             public void mouseClicked(MouseEvent e) {
                 final Frame f = new Frame();
